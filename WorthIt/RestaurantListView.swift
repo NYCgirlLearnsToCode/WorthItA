@@ -10,6 +10,8 @@ import SwiftUI
 struct RestaurantListView: View {
     @State private var searchText = ""
     @State private var selectedFilter: PriceFilter = .all
+    @ObservedObject var viewModel: RestaurantListViewModel
+    
     private enum PriceFilter: String, CaseIterable {
         case all = "All"
         case under10 = "Under $10"
@@ -17,8 +19,8 @@ struct RestaurantListView: View {
         case chinese = "Chinese"
     }
 
-    var filteredRestaurants: [Restaurant] {
-        mockRestaurants.filter { restaurant in
+    var filteredRestaurants: [RestaurantViewData] {
+        viewModel.restaurants.filter { restaurant in
             let matchesSearch = searchText.isEmpty
             || restaurant.restaurantName.localizedCaseInsensitiveContains(searchText)
             || restaurant.neighborhood.localizedCaseInsensitiveContains(searchText)
@@ -66,19 +68,19 @@ struct RestaurantListView: View {
                     .background(.blue)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
+            // TODO: buggy scroll/ doesn't scroll
             List(filteredRestaurants) { restaurant in
                 VStack (alignment: .leading, spacing: 8.0) {
                     Text(restaurant.restaurantName)
-                        .font(.title)
+                        .font(.headline)
                     Text(restaurant.address)
-                    Text(restaurant.mealName)
-                        .font(.callout)
-                    Text("\(restaurant.price)")
-                        .font(.subheadline)
-                    Text(restaurant.category)
-                    Text(restaurant.notes)
-                    Text(restaurant.neighborhood)
-                    Text(restaurant.lastVerified)
+                    HStack {
+                        Text(restaurant.mealName)
+                            .font(.callout)
+                        Spacer()
+                        Text("\(restaurant.formattedPrice)")
+                            .font(.subheadline)
+                    }
                 }
             }
             .navigationTitle("NYC Cheap Eats")

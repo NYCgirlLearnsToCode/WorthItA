@@ -24,21 +24,15 @@ struct RestaurantMapView: View {
     var body: some View {
         Map(initialPosition: .region(region), content: {
             ForEach(mockRestaurants) { restaurant in
-                Annotation(
-                    restaurant.restaurantName,
-                    coordinate: CLLocationCoordinate2D(
-                        latitude: restaurant.latitude,
-                        longitude: restaurant.longitude
-                    )
-                ) {
-                    VStack {
-//                        Text("\(restaurant.price)")
-                        Image(systemName: "fork.knife")
-                    }
-                    .padding(8)
-                    .background(.green)
-                    .clipShape(Circle())
-                }
+                // TODO: update to annotation when custom map point is needed
+                Marker(restaurant.restaurantName,
+                       systemImage: "fork.knife",
+                       coordinate:
+                        CLLocationCoordinate2D(
+                            latitude: restaurant.latitude,
+                            longitude: restaurant.longitude)
+                )
+                .tint(.blue)
             }
         })
     }

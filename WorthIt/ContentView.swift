@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var viewModel = RestaurantListViewModel()
+    
     var body: some View {
         VStack {
-            RestaurantListView()
+            // TODO: look into long initial app load time
+            RestaurantListView(viewModel: viewModel)
         }
     }
 }

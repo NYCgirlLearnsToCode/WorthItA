@@ -12,6 +12,7 @@ struct FilterChip: View {
     let isSelected: Bool
     let action: () -> Void
     
+    // TODO: bug/feature chip does not unselect
     var body: some View {
         Button(action: action) {
             Text(title)
