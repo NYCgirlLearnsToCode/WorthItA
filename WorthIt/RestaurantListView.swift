@@ -55,6 +55,17 @@ struct RestaurantListView: View {
                 }
                 .padding()
             }
+          
+            NavigationLink() {
+                RestaurantMapView()
+            } label: {
+                Text("Show Map")
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .padding()
+                    .background(.blue)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
             List(filteredRestaurants) { restaurant in
                 VStack (alignment: .leading, spacing: 8.0) {
                     Text(restaurant.restaurantName)
