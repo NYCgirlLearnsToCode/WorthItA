@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct RestaurantMapView: View {
+    @State private var selectedRestaurant: RestaurantViewData?
+    @ObservedObject var viewModel: RestaurantListViewModel
     
     private let region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(
@@ -20,22 +22,25 @@ struct RestaurantMapView: View {
             longitudeDelta: 0.1
         )
     )
-
+    
     var body: some View {
-        Map(initialPosition: .region(region), content: {
-            ForEach(mockRestaurants) { restaurant in
-                // TODO: update to annotation when custom map point is needed
-                Marker(restaurant.restaurantName,
-                       systemImage: "fork.knife",
-                       coordinate:
-                        CLLocationCoordinate2D(
-                            latitude: restaurant.latitude,
-                            longitude: restaurant.longitude)
-                )
-                .tint(.blue)
+        Map(initialPosition: .region(region)) {
+            ForEach(viewModel.restaurants) { restaurant in
+
+                Annotation(restaurant.restaurantName,
+                           coordinate: restaurant.mapCoordinate) {
+                    Button {
+                        selectedRestaurant = restaurant
+                    } label: {
+                        Image(systemName: "fork.knife.circle.fill")
+                            .font(.title)
+                            .foregroundStyle(.blue)
+                    }
+                }
             }
-        })
+        }
+        .sheet(item: $selectedRestaurant) { restaurant in
+            RestaurantDetailView(restaurant: restaurant)
+        }
     }
 }
-
-

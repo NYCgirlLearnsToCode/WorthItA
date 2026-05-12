@@ -13,7 +13,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            // TODO: look into long initial app load time
             RestaurantListView(viewModel: viewModel)
         }
     }

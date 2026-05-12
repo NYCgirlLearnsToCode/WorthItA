@@ -57,9 +57,8 @@ struct RestaurantListView: View {
                 }
                 .padding()
             }
-          
             NavigationLink() {
-                RestaurantMapView()
+                RestaurantMapView(viewModel: viewModel)
             } label: {
                 Text("Show Map")
                     .font(.headline)

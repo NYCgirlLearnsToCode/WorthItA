@@ -18,6 +18,7 @@ struct RestaurantViewData: Identifiable {
     let borough: String
     let neighborhood: String
     let address: String
+    let appleMapCoordinate: CLLocation
     let mapCoordinate: CLLocationCoordinate2D
     let notes: String
     let lastVerified: String
@@ -36,6 +37,8 @@ extension RestaurantViewData {
         self.neighborhood = restaurant.neighborhood
         self.address = restaurant.address
 
+        self.appleMapCoordinate = CLLocation(latitude: restaurant.latitude,
+                                             longitude: restaurant.longitude)
         self.mapCoordinate = CLLocationCoordinate2D(latitude: restaurant.latitude,
                                                     longitude: restaurant.longitude)
         self.notes = restaurant.notes
