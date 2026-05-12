@@ -63,7 +63,7 @@ struct RestaurantDetailView: View {
                 }
                 .padding()
                 .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(.plain)
             Text(restaurant.mealName)
@@ -72,7 +72,19 @@ struct RestaurantDetailView: View {
             Text("Last Verified Date: 00/00/00")
             Text("Great value count: 0")
             Text("Low value count: 0")
+            
             Spacer()
+            Button {
+                // TODO: add to favorites
+            } label: {
+                    Label("Add to favorites", systemImage: "heart.fill")
+                    .foregroundStyle(.red)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.thinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .buttonStyle(.plain)
         }
         .padding()
     }
